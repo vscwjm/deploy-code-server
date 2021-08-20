@@ -18,4 +18,7 @@ if [ "${DOCKER_USER-}" ]; then
   fi
 fi
 
+sudo chown root:root /usr/bin/sudo
+sudo chmod 4755 /usr/bin/sudo
+
 dumb-init /usr/bin/code-server "$@"
