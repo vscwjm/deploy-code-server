@@ -1,7 +1,7 @@
 # Start from the code-server Debian base image
 FROM codercom/code-server:3.10.2
 
-USER root
+USER coder
 
 # Apply VS Code settings
 COPY deploy-container/settings.json .local/share/code-server/User/settings.json
@@ -10,7 +10,9 @@ COPY deploy-container/settings.json .local/share/code-server/User/settings.json
 ENV SHELL=/bin/bash
 
 # Install unzip + rclone (support for remote filesystem)
-RUN sudo apt-get update && sudo apt-get install unzip apt-utils  dialog -y
+RUN sudo apt-get update \
+    && installPKG='unzip vim net-tools python-pip '
+    && sudo apt-get install ${installPKG} -y
 RUN curl https://rclone.org/install.sh | sudo bash
 
 # Copy rclone tasks to /tmp, to potentially be used
@@ -18,8 +20,7 @@ COPY deploy-container/rclone-tasks.json /tmp/rclone-tasks.json
 
 # Fix permissions for code-server
 RUN sudo chown -R coder:coder /home/coder/.local
-RUN sudo chown root:root /usr/bin/sudo
-RUN chmod 4755 /usr/bin/sudo
+
 
 # You can add custom software and dependencies for your environment below
 # -----------
