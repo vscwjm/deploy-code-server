@@ -1,16 +1,16 @@
 # Start from the code-server Debian base image
 FROM codercom/code-server:3.10.2
 
-USER root
+USER coder
 
 # Apply VS Code settings
 COPY deploy-container/settings.json .local/share/code-server/User/settings.json
-COPY entrypoint.sh /usr/bin/entrypoint.sh
+
 # Use bash shell
 ENV SHELL=/bin/bash
 
 # Install unzip + rclone (support for remote filesystem)
-RUN sudo apt-get update && sudo apt-get install unzip -y
+RUN sudo apt-get update && sudo apt-get install unzip apt-utils -y
 RUN curl https://rclone.org/install.sh | sudo bash
 
 # Copy rclone tasks to /tmp, to potentially be used
