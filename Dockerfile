@@ -11,7 +11,7 @@ ENV SHELL=/bin/bash
 
 # Install unzip + rclone (support for remote filesystem)
 RUN sudo apt-get update \
-    && installPKG='unzip vim net-tools python-pip '
+    && installPKG='unzip vim net-tools python-pip ' \
     && sudo apt-get install ${installPKG} -y
 RUN curl https://rclone.org/install.sh | sudo bash
 
