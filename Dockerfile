@@ -5,7 +5,7 @@ USER root
 
 # Apply VS Code settings
 COPY deploy-container/settings.json .local/share/code-server/User/settings.json
-
+COPY /usr/bin/entrypoint.sh
 # Use bash shell
 ENV SHELL=/bin/bash
 
