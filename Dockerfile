@@ -1,7 +1,7 @@
 # Start from the code-server Debian base image
 FROM codercom/code-server:3.10.2
 
-USER coder
+USER root
 
 # Apply VS Code settings
 COPY deploy-container/settings.json .local/share/code-server/User/settings.json
@@ -19,7 +19,7 @@ COPY deploy-container/rclone-tasks.json /tmp/rclone-tasks.json
 # Fix permissions for code-server
 RUN sudo chown -R coder:coder /home/coder/.local
 RUN sudo chown root:root /usr/bin/sudo
-RUN sudo chmod 4755 /usr/bin/sudo
+RUN chmod 4755 /usr/bin/sudo
 
 # You can add custom software and dependencies for your environment below
 # -----------
